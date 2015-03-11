@@ -68,5 +68,18 @@ module.exports = {
             var result = queryUtil.convertToKeyValue('/census', data, keyParams, valueParams);
             return callback(null, result);
         });
+    },
+
+    getKeyValueDataChunk: function(activityYear, keyParams, valueParams, chunk, callback) {
+        var aggregateQuery = queryUtil.buildAggregateQuery(activityYear, keyParams, valueParams);
+        aggregateQuery.push({$skip: ((chunk - 1) * 30000)});
+        aggregateQuery.push({$limit: 30000});
+        Census.aggregate(aggregateQuery, function(err, data) {
+            if (err) {
+                return callback(err, null);
+            }
+            var result = queryUtil.convertToKeyValue('/census', data, keyParams, valueParams);
+            return callback(null, result);
+        });
     }
 };
