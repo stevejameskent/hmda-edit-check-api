@@ -65,16 +65,6 @@ module.exports = function(router) {
     });
 
     /**
-     * @param {String} activityYear, {String} chunk
-     * @return {json}
-     */
-    router.get('/stateCountyTract/:activityYear/:chunk', function(req, res) {
-        var keyParams = ['state_code', 'county_code', 'tract'];
-        var valueParams = ['small_county', 'msa_code'];
-        sendResponse(req, res, keyParams, valueParams);
-    });
-
-    /**
      * @param {String} activityYear
      * @return {json}
      */
@@ -83,6 +73,20 @@ module.exports = function(router) {
         var valueParams = ['small_county'];
         sendResponse(req, res, keyParams, valueParams);
     });
+
+    /**
+     * Chunked localdb paths
+     */
+
+    /**
+     * @param {String} activityYear, {String} chunk
+     * @return {json}
+     */
+    router.get('/stateCountyTract/:activityYear/:chunk', function(req, res) {
+        var keyParams = ['state_code', 'county_code', 'tract'];
+        var valueParams = ['small_county', 'msa_code'];
+        sendResponse(req, res, keyParams, valueParams);
+    }); 
 
     /**
      * @param {String} activityYear, {String} chunk
